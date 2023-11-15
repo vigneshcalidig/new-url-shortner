@@ -53,9 +53,9 @@ class AppwriteService {
           '65548960a4456860b106',
           '6554897626f0d9db290c',
           shortCode,
-          
-            url,
-          
+          {
+           "url":  url,
+          },
         )
       );
 

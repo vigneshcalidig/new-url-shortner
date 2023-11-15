@@ -21,7 +21,7 @@ export default async ({ res, req, log, error }) => {
       return res.send({ ok: false, error: err.message }, 400);
     }
 
-    context.log(req.body.url);
+    log(req.body.url);
 
     const urlEntry = await appwrite.createURLEntry(
       req.body.url,

@@ -1,4 +1,4 @@
-import { Client, Databases } from 'node-appwrite';
+import { Client, Databases } from "node-appwrite";
 
 /**
  * @typedef {Object} URLEntry
@@ -12,10 +12,10 @@ class AppwriteService {
     const client = new Client();
     client
       .setEndpoint(
-        process.env.APPWRITE_ENDPOINT ?? 'https://cloud.appwrite.io/v1'
+        "https://cloud.appwrite.io/v1",
       )
-      .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-      .setKey(process.env.APPWRITE_API_KEY);
+      .setProject("65546fd72fba29d9f59e")
+      .setKey("c868be055bd9871c8dbe0e618ce20d7985b5af5ff8088cbf3f681b7c481072df5a2748f8d8cd966559fed979d28338a55c42e452ed779a544bad524b43c773845647f5fa725c0fabbf8568647f20d30f8905521974088f53fdc521391bdf0b9bf7d5cd8540e29be7f0e9eaadad161fc78089681fc1b9f719d3073fb3462c2682");
 
     this.databases = new Databases(client);
   }
@@ -28,9 +28,9 @@ class AppwriteService {
     try {
       const document = /** @type {URLEntryDocument} */ (
         await this.databases.getDocument(
-          process.env.APPWRITE_DATABASE_ID,
-          process.env.APPWRITE_COLLECTION_ID,
-          shortCode
+          '65548960a4456860b106',
+          '6554897626f0d9db290c',
+          shortCode,
         )
       );
 
@@ -50,12 +50,12 @@ class AppwriteService {
     try {
       const document = /** @type {URLEntryDocument} */ (
         await this.databases.createDocument(
-          process.env.APPWRITE_DATABASE_ID,
-          process.env.APPWRITE_COLLECTION_ID,
+          '65548960a4456860b106',
+          '6554897626f0d9db290c',
           shortCode,
           {
             url,
-          }
+          },
         )
       );
 
@@ -71,7 +71,7 @@ class AppwriteService {
    */
   async doesURLEntryDatabaseExist() {
     try {
-      await this.databases.get(process.env.APPWRITE_DATABASE_ID);
+      await this.databases.get('65548960a4456860b106');
       return true;
     } catch (err) {
       if (err.code !== 404) throw err;
@@ -82,8 +82,8 @@ class AppwriteService {
   async setupURLEntryDatabase() {
     try {
       await this.databases.create(
-        process.env.APPWRITE_DATABASE_ID,
-        'URL Shortener'
+        '65548960a4456860b106',
+        "URL Shortener",
       );
     } catch (err) {
       // If resource already exists, we can ignore the error
@@ -91,19 +91,19 @@ class AppwriteService {
     }
     try {
       await this.databases.createCollection(
-        process.env.APPWRITE_DATABASE_ID,
-        process.env.APPWRITE_COLLECTION_ID,
-        'URLs'
+        '65548960a4456860b106',
+        '6554897626f0d9db290c',
+        "URLs",
       );
     } catch (err) {
       if (err.code !== 409) throw err;
     }
     try {
       await this.databases.createUrlAttribute(
-        process.env.APPWRITE_DATABASE_ID,
-        process.env.APPWRITE_COLLECTION_ID,
-        'url',
-        true
+        '65548960a4456860b106',
+        '6554897626f0d9db290c',
+        "url",
+        true,
       );
     } catch (err) {
       if (err.code !== 409) throw err;
